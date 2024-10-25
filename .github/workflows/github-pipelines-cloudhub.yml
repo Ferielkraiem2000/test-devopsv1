@@ -25,8 +25,8 @@ jobs:
 
       - name: Set up Git remote
         run: |
-          git remote add dev https://${{ secrets.GIT_TOKEN }}@github.com/Ferielkraiem2000/pipeline_mulesoft_cloudhub.git
-          git remote set-url dev https://${{ secrets.GIT_TOKEN }}@github.com/Ferielkraiem2000/pipeline_mulesoft_cloudhub.git
+          git remote add dev https://${{ secrets.GIT_TOKEN }}@github.com/Ferielkraiem2000/test-devopsv1.git
+          git remote set-url dev https://${{ secrets.GIT_TOKEN }}@github.com/Ferielkraiem2000/test-devopsv1.git
     
       - name: Create and push Maven settings file
         run: |
@@ -215,21 +215,21 @@ jobs:
       - name: Build
         id: build
         run: |
-          START_TIME=$(date +%s)
+          # START_TIME=$(date +%s)
           mvn clean package
-          END_TIME=$(date +%s)
-          BUILD_DURATION=$((END_TIME - START_TIME))
+          # END_TIME=$(date +%s)
+          # BUILD_DURATION=$((END_TIME - START_TIME))
           
-          echo "Build completed in ${BUILD_DURATION} seconds"
+          # echo "Build completed in ${BUILD_DURATION} seconds"
           
-          # Send build duration to Prometheus
-          curl -X POST https://working-cobra-early.ngrok-free.app/metrics \
-          -H "Content-Type: application/json" \
-          -d '{
-                "metric": "build_duration_seconds",
-                "value": "'${BUILD_DURATION}'",
-                "labels": {"job": "ci_build", "branch": "${{ github.ref_name }}"}
-              }' -v
+          # # Send build duration to Prometheus
+          # curl -X POST https://working-cobra-early.ngrok-free.app/metrics \
+          # -H "Content-Type: application/json" \
+          # -d '{
+          #       "metric": "build_duration_seconds",
+          #       "value": "'${BUILD_DURATION}'",
+          #       "labels": {"job": "ci_build", "branch": "${{ github.ref_name }}"}
+          #     }' -v
           
 
       - name: Deploy to CloudHub
